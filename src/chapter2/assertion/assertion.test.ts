@@ -105,3 +105,28 @@ it('differences between toEqual and toStrictEqual', () => {
 it('can2 and can4 are different class', () => {
   expect(can2).not.toStrictEqual(can4)
 })
+
+it('"0" should be Truthy', () => {
+  expect('0').toBeTruthy()
+})
+
+it('0 should be Falsy', () => {
+  expect(0).toBeFalsy()
+})
+
+it('should be null', () => {
+  expect(null).toBe(null)
+  expect(null).toBeNull()
+})
+
+it('should be undefined', () => {
+  expect(undefined).toBe(undefined)
+  expect(undefined).toBeUndefined()
+})
+
+it('should be null or undefined', () => {
+  let a
+  expect(a == null).toBe(true)
+  a = null
+  expect(a == null).toBe(true)
+})
