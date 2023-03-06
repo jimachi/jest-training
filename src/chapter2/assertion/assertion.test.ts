@@ -130,3 +130,49 @@ it('should be null or undefined', () => {
   a = null
   expect(a == null).toBe(true)
 })
+
+const hoge = () => ({ hoge: 'hogehoge', number: 0 })
+
+it('hoge return anything', () => {
+  // 期待値がnullやundefinedでないことを評価
+  expect(hoge()).toEqual(expect.anything())
+
+  // 期待値の一部のプロパティがnullやundefinedでないことを評価
+  expect(hoge()).toEqual({
+    hoge: 'hogehoge',
+    number: expect.anything(),
+  })
+
+  // 期待値の一部のプロパティnumberがNumber型であることを評価
+  expect(hoge()).toEqual({
+    hoge: 'hogehoge',
+    number: expect.any(Number),
+  })
+})
+
+it('0.1 + 0.2 returns 0.3', () => {
+  expect(0.1 + 0.2).toBeCloseTo(0.3)
+})
+
+it('0.301 and 0.3 are different when numDigits is 3', () => {
+  expect(0.3 + 0.001).not.toBeCloseTo(0.3, 3)
+})
+
+it('0.1 + 0.2 is greater than 0.3', () => {
+  expect(0.1 + 0.2).toBeGreaterThan(0.3)
+  expect(0.1 + 0.2 > 0.3).toBe(true)
+})
+
+it('0.1 + 0.2 is greater than 0.3 or 0.1 + 0.2 equals to 0.30000000000004', () => {
+  expect(0.1 + 0.2).toBeGreaterThanOrEqual(0.3)
+  expect(0.1 + 0.2).toBeGreaterThanOrEqual(0.30000000000000004)
+  expect(0.1 + 0.2 >= 0.3).toBe(true)
+  expect(0.1 + 0.2 >= 0.30000000000000004).toBe(true)
+})
+
+it('0.1 + 0.2 is less than 0.3 or 0.1 + 0.2 equals to 0.30000000000004', () => {
+  expect(0.1 + 0.2).toBeLessThanOrEqual(0.4)
+  expect(0.1 + 0.2).toBeLessThanOrEqual(0.30000000000000004)
+  expect(0.1 + 0.2 <= 0.4).toBe(true)
+  expect(0.1 + 0.2 <= 0.30000000000000004).toBe(true)
+})
