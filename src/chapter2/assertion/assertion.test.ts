@@ -306,3 +306,34 @@ it('return lemon', (done) => {
   }
   fetchDataWithCallback(callback)
 })
+
+const fetchDataWithPromiseResolve = () => {
+  return new Promise((resolve) => setTimeout(resolve, 1000, 'lemon'))
+}
+
+it('return lemon', () => {
+  return expect(fetchDataWithPromiseResolve()).resolves.toBe('lemon')
+})
+
+it('return lemon with async/await', async () => {
+  await expect(fetchDataWithPromiseResolve()).resolves.toBe('lemon')
+})
+
+const fetchDataWithPromiseReject = () => {
+  return new Promise((resolve, reject) =>
+    setTimeout(reject, 1000, new Error('lemon does not exist'))
+  )
+}
+
+it('return lemon', () => {
+  return expect(fetchDataWithPromiseReject()).rejects.toThrow(
+    'lemon does not exist'
+  )
+})
+
+it('failed to return lemon', async () => {
+  await expect(fetchDataWithPromiseReject()).rejects.toThrow(
+    'lemon does not exist'
+  )
+})
+
