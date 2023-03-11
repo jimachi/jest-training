@@ -208,3 +208,62 @@ it('contain IP address between 10.0.0.0 and 10.0.0.99', () => {
   expect(regex.test(log2)).toBe(true)
   expect(regex.test(log3)).toBe(true)
 })
+
+const fruitList = ['Apple', 'Lemon', 'Orange']
+
+it('contains Apple in fruitList', () => {
+  expect(fruitList).toContain('Apple')
+})
+
+it('contains Apple and Orange in fruitList', () => {
+  expect(fruitList).toEqual(expect.arrayContaining(['Apple', 'Orange']))
+})
+
+const itemList = [
+  { name: 'Apple', price: 100 },
+  { name: 'Lemon', price: 150 },
+  { name: 'Orange', price: 120 },
+]
+
+it('contains Apple in itemList', () => {
+  expect(itemList).toContainEqual({ name: 'Apple', price: 100 })
+})
+
+it('contains Apple and Orange in itemList', () => {
+  expect(itemList).toEqual(
+    expect.arrayContaining([
+      { name: 'Apple', price: 100 },
+      { name: 'Orange', price: 120 },
+    ])
+  )
+})
+
+const ciBuild = {
+  number: 1,
+  duration: 12000,
+  state: 'success',
+  triggerParameters: {
+    is_scheduled: true,
+  },
+  type: 'scheduled_pipeline',
+  actor: {
+    login: 'Taka',
+  },
+}
+
+it('build state should be success', () => {
+  expect(ciBuild).toHaveProperty('state', 'success')
+})
+
+it('actor should be Taka', () => {
+  expect(ciBuild).toHaveProperty('actor.login', 'Taka')
+})
+
+it('triggered by the scheduled pipeline', () => {
+  expect(ciBuild).toEqual(
+    expect.objectContaining({
+      triggerParameters: expect.objectContaining({ is_scheduled: true }),
+      type: 'scheduled_pipeline',
+    })
+  )
+})
